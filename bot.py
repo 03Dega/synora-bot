@@ -1,14 +1,19 @@
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
+import os
 from groq import Groq
 
-# ⚠️ NO pongas claves en el código en producción
-import os
 
 TOKEN = os.getenv("TOKEN")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
+if not TOKEN:
+    raise RuntimeError("❌ TOKEN de Telegram no configurado")
+
+if not GROQ_API_KEY:
+    raise RuntimeError("❌ GROQ_API_KEY no configurada")
 
 client = Groq(api_key=GROQ_API_KEY)
+
 
 SYNORA_PERSONALITY = """
 Eres Synora, un personaje original de fantasía moderna.
